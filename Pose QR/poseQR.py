@@ -38,6 +38,7 @@ det = cv.QRCodeDetector()
 # Transformación
 Tcq = []
 
+print("ESC to quit.")
 countPrint = 0
 while True:
     ret, im = cam.read()

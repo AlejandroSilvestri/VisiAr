@@ -14,6 +14,7 @@ cam.set(cv.CAP_PROP_FRAME_HEIGHT, 480)
 
 det = cv.QRCodeDetector()
 
+print("ESC to quit.")
 while True:
     ret, im = cam.read()
     #ret, qrs = det.detect(im)   # detecta sin decodificar; ret es booleano
