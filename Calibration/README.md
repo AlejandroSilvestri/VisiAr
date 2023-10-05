@@ -1,3 +1,5 @@
+# Camera calibration
+
 ## calibrate.py
 Is a tiny and simple interactive camera calibration application.
 
@@ -13,3 +15,7 @@ While running:
 
 After calibration you can continue grabbing more pictures and repeat the calibration.
 Calibration results are shown in console.
+
+![calibrate cam view](calibrate1.png)
+
+![calibrate taken](calibrate2.png)
