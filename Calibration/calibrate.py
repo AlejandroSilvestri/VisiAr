@@ -9,6 +9,11 @@ print("""
       """)
 
 ESC = chr(27)
+cv.namedWindow("Detecciones", cv.WINDOW_NORMAL)
+cv.namedWindow("Cam", cv.WINDOW_NORMAL)
+cv.namedWindow("Tablero", cv.WINDOW_NORMAL)
+defaultPrintOptions = np.get_printoptions()
+
 chessBoard = (9,6)
 gradualDarkness = 0.90
 cornersubpixTerminationCriteria = (cv.TERM_CRITERIA_EPS + cv.TERM_CRITERIA_MAX_ITER, 30, 0.001)
@@ -19,8 +24,8 @@ objPoints = []
 chessboardPointCloud3D = np.zeros((chessBoard[0]*chessBoard[1],3), np.float32)
 chessboardPointCloud3D[:,:2] = np.mgrid[0:chessBoard[0],0:chessBoard[1]].T.reshape(-1,2)
 
-imChessboard = cv.imread("pattern_chessboard 6 x 9.png", flags = cv.IMREAD_GRAYSCALE)
-cv.imshow("Calibration pattern", imChessboard) # Opens an empty window?
+imChessboard = cv.imread("pattern_chessboard 6 x 9.png")#, flags = cv.IMREAD_GRAYSCALE)
+cv.imshow("Tablero", imChessboard) # Opens an empty window?
 
 cam = cv.VideoCapture(0)
 width = cam.get(cv.CAP_PROP_FRAME_WIDTH)
@@ -57,7 +62,7 @@ while True:
                     # Anota en baja resolución
                     imBlack = cv.convertScaleAbs(imBlack, alpha=gradualDarkness, beta=0)
                     cv.drawChessboardCorners(imBlack, chessBoard, corners, ret)
-                    cv.imshow("Calibraciones", imBlack)
+                    cv.imshow("Detecciones", imBlack)
 
                     print(len(imgPoints), "pictures taken")
 
@@ -66,9 +71,11 @@ while True:
                 ret, K, distCoef, rvecs, tvecs = cv.calibrateCamera(objPoints, imgPoints, im.shape[:2][::-1], None, None, flags=cv.CALIB_ZERO_TANGENT_DIST)
 
                 # Muestra resultados
-                print("Coeficientes de distorsión: k1", distCoef[0], ", k2", distCoef[1], ", k3", distCoef[4])
-                print(distCoef)
+                print("Coeficientes de distorsión (K1, K2, P1, P2, K3):", distCoef)
+
+                np.set_printoptions(precision=2, suppress=True)
                 print("Matriz K", K)
+                np.set_printoptions(**defaultPrintOptions)
 
             case ESC:
                 print("Terminando.")
