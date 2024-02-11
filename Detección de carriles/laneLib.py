@@ -587,7 +587,7 @@ class Lane:
     """
     # Generate an image to draw the lane lines on 
     warp_zero = np.zeros_like(self.warped_frame).astype(np.uint8)
-    color_warp = np.dstack((warp_zero, warp_zero, warp_zero))		
+    color_warp = np.dstack((warp_zero, warp_zero, warp_zero))
 		
     # Recast the x and y points into usable format for cv2.fillPoly()
     pts_left = np.array([np.transpose(np.vstack([
